@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors for each controlled lane of each intersection -->
+    <!-- Using 0.1m position for all lanes to ensure they fit -->
+    <inductionLoop id="detector_10074640066_1_0" lane=":10074640066_1_0" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    <inductionLoop id="detector_10074640066_1_1" lane=":10074640066_1_1" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    
+    <inductionLoop id="detector_10074640066_3_0" lane=":10074640066_3_0" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    <inductionLoop id="detector_10074640066_3_1" lane=":10074640066_3_1" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    
+    <inductionLoop id="detector_10074640049_1_0" lane=":10074640049_1_0" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    <inductionLoop id="detector_10074640049_2_0" lane=":10074640049_2_0" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    
+    <inductionLoop id="detector_10074640060_4_0" lane=":10074640060_4_0" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+    <inductionLoop id="detector_10074640060_5_0" lane=":10074640060_5_0" pos="0.1" freq="1" file="../logs/detector_output.xml"/>
+</additional> 

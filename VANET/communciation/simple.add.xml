@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RSU at intersection -->
+    <inductionLoop id="rsu_intersection" lane="edge0_0" pos="90" length="20" freq="1" file="rsu_output.xml" friendlyPos="true"/>
+    
+    <!-- RSU on main road -->
+    <inductionLoop id="rsu_main" lane="edge1_0" pos="10" length="20" freq="1" file="rsu_output.xml" friendlyPos="true"/>
+</additional>

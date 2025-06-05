@@ -1,0 +1,4 @@
+<edges>
+    <edge id="edge0" from="n0" to="n1" type="car"/>
+    <edge id="edge1" from="n1" to="n2" type="car"/>
+</edges>

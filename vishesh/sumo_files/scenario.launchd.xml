@@ -1,0 +1,11 @@
+<launch>
+    <copy file="net_with_tls.net.xml"/>
+    <copy file="routes.rou.alt.xml"/>
+    <copy file="simulation.sumocfg"/>
+    
+    <sumo>
+        <configuration-file value="simulation.sumocfg"/>
+        <seed value="23423"/>
+        <remote-port value="9999"/>
+    </sumo>
+</launch>

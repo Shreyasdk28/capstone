@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+    <copy file="sumo.cfg" type="config" />
+    <copy file="net.net.xml" type="network" />
+    <copy file="routes.rou.xml" type="routes" />
+    
+    <seed value="23423"/>
+    <remote-port value="9999"/>
+    <sumo-gui value="true"/>
+    <gui-settings file="gui-settings.xml"/>
+</launch> 

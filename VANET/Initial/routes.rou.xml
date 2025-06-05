@@ -1,0 +1,15 @@
+<routes>
+    <vType id="car" accel="1.0" decel="4.5" length="5" maxSpeed="13.9" color="1,0,0"/>
+
+    <!-- Traffic from North -->
+    <flow id="northFlow" type="car" begin="0" end="60" number="20" from="N2C" to="C2S"/>
+
+    <!-- Traffic from South -->
+    <flow id="southFlow" type="car" begin="0" end="60" number="10" from="S2C" to="C2N"/>
+
+    <!-- Traffic from East -->
+    <flow id="eastFlow" type="car" begin="0" end="60" number="15" from="E2C" to="C2W"/>
+
+    <!-- Traffic from West -->
+    <flow id="westFlow" type="car" begin="0" end="60" number="25" from="W2C" to="C2E"/>
+</routes>

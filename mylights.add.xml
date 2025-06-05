@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <tlLogic id="trafficLight1" type="static" programID="1">
+        <phase duration="30" state="GrGr"/>
+        <phase duration="5" state="yryr"/>
+        <phase duration="30" state="rGrG"/>
+        <phase duration="5" state="ryry"/>
+    </tlLogic>
+</additional>

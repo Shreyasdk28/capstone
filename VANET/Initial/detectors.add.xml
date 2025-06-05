@@ -1,0 +1,21 @@
+<additional>
+
+    <!-- North Lane Detectors -->
+    <inductionLoop id="N1" lane="N2C_0" pos="20" freq="1" file="detector_output.xml"/>
+    <inductionLoop id="N2" lane="N2C_0" pos="50" freq="1" file="detector_output.xml"/>
+    <inductionLoop id="N3" lane="N2C_0" pos="80" freq="1" file="detector_output.xml"/>
+
+    <!-- South Lane Detectors -->
+    <inductionLoop id="S1" lane="S2C_0" pos="20" freq="1" file="detector_output.xml"/>
+    <inductionLoop id="S2" lane="S2C_0" pos="50" freq="1" file="detector_output.xml"/>
+
+    <!-- East Lane Detectors -->
+    <inductionLoop id="E1" lane="E2C_0" pos="20" freq="1" file="detector_output.xml"/>
+    <inductionLoop id="E2" lane="E2C_0" pos="50" freq="1" file="detector_output.xml"/>
+
+    <!-- West Lane Detectors -->
+    <inductionLoop id="W1" lane="W2C_0" pos="20" freq="1" file="detector_output.xml"/>
+    <inductionLoop id="W2" lane="W2C_0" pos="50" freq="1" file="detector_output.xml"/>
+    <inductionLoop id="W3" lane="W2C_0" pos="80" freq="1" file="detector_output.xml"/>
+
+</additional>
