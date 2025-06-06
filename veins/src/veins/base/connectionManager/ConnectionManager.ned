@@ -22,8 +22,7 @@
 
 // part of:     framework implementation developed by tkn
 
-package org.car2x.veins.base.connectionManager;
-
+package veins.base.connectionManager;
 // Module to control all connection related stuff
 //
 // The central module that coordinates the connections between all

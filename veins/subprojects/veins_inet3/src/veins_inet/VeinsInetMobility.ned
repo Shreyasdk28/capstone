@@ -27,7 +27,7 @@
 
 import inet.mobility.contract.IMobility;
 
-package org.car2x.veins.subprojects.veins_inet;
+package veins.subprojects.veins_inet;
 
 simple VeinsInetMobility like IMobility
 {

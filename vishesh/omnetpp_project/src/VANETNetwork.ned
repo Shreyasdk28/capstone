@@ -38,6 +38,11 @@ network VANETNetwork
             parameters:
                 @display("p=512,128");
         }
+        trafficServer: TrafficServer {
+            parameters:
+                serverPort = 5005;
+                @display("p=512,256");
+        }
         
     connections allowunconnected:
 }
@@ -60,6 +65,19 @@ simple TrafficSignal
         @display("i=block/traffic");
         double transmissionRange @unit(m) = default(500m);
         double signalChangeInterval @unit(s) = default(30s);
+        double updateInterval @unit(s) = default(1s);
+        string poleId;
+        
+    gates:
+        input radioIn @directIn;
+        inout gate[];
+}
+
+simple TrafficServer
+{
+    parameters:
+        @display("i=block/server");
+        int serverPort = default(5005);
         
     gates:
         input radioIn @directIn;

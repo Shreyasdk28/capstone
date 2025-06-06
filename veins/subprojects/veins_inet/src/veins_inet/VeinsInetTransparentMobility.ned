@@ -25,7 +25,7 @@
 // Module works somewhat like an attached mobility module with translation
 //
 
-package org.car2x.veins.subprojects.veins_inet;
+package veins.subprojects.veins_inet;
 
 import inet.mobility.base.MobilityBase;
 

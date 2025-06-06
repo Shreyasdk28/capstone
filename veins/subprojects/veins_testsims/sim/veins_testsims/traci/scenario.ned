@@ -20,10 +20,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-package org.car2x.veins.subprojects.veins_testsims.sim.veins_testsims.traci;
+package veins.subprojects.veins_testsims.sim.veins_testsims.traci;
 
-import org.car2x.veins.nodes.Scenario;
-import org.car2x.veins.nodes.TrafficLight;
+import veins.nodes.Scenario;
+import veins.nodes.TrafficLight;
 
 network scenario extends Scenario
 {

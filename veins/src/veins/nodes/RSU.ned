@@ -20,10 +20,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-package org.car2x.veins.nodes;
+package veins.nodes;
 
-import org.car2x.veins.base.modules.*;
-import org.car2x.veins.modules.nic.Nic80211p;
+import veins.base.modules.*;
+import veins.modules.nic.Nic80211p;
 
 module RSU
 {
@@ -33,12 +33,12 @@ module RSU
     gates:
         input veinsradioIn; // gate for sendDirect
     submodules:
-        appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
+        appl: <applType> like veins.base.modules.IBaseApplLayer {
             parameters:
                 @display("p=60,50");
         }
 
-        nic: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+        nic: <nicType> like veins.modules.nic.INic80211p {
             parameters:
                 @display("p=60,166");
         }
