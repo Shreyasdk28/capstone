@@ -1,0 +1,3 @@
+<vTypes>
+    <vType id="ambulance" accel="3.0" decel="6.0" sigma="0.5" length="6.0" maxSpeed="20.0" guiShape="ambulance"/>
+</vTypes>

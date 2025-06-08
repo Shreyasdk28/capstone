@@ -21,7 +21,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-    
+    <vType id="emergency" guiShape="emergency" vClass="emergency"/>
     <vehicle id="0" type="car" depart="0.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="212982983 1311716614#1 -1311716614#1"/>
     </vehicle>
@@ -94,9 +94,10 @@
     <vehicle id="32" type="car" depart="32.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="687319734#0 687319734#1 747185917#0 747185917#1 747185917#2 747185917#3 800252499#1 38751570"/>
     </vehicle>
-    <vehicle id="33" type="car" depart="33.00" departLane="best" departPos="base" departSpeed="max">
-        <route edges="-52243782#2 172845865#4 172845865#5 172845865#6 759364439#0 759364439#1 759364439#2 -1311716614#3 -1311716614#2"/>
-    </vehicle>
+    <vehicle id="33" type="emergency" depart="33.00" departLane="best" departPos="base" departSpeed="max">
+    <route edges="-52243782#2 172845865#4 172845865#5 172845865#6 759364439#0 759364439#1 759364439#2 -1311716614#3 -1311716614#2"/>
+     </vehicle>
+
     <vehicle id="34" type="car" depart="34.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="-687319738#3 -687319738#2 -687319738#1 -687319738#0 687319738#0 687319738#1 687319738#2 687319738#3 687319738#4 687319738#5 172851193#0 172851193#1 172851193#2 284772853#1 284772853#2 284772853#3 -52243782#3 -52243782#2 -52243782#1 -661652619#0"/>
     </vehicle>
