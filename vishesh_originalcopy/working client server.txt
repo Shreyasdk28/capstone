@@ -1,0 +1,204 @@
+server********************************8
+import socket
+import ast
+
+SERVER_IP = "0.0.0.0"
+SERVER_PORT = 9999
+
+def clear_traffic_and_command(signal_id, lane_id, client_addr, client_port, sock):
+    print(f"\033[91m    >>> CLEARING TRAFFIC at signal '{signal_id}' for lane '{lane_id}' due to incoming ambulance! <<<\033[0m")
+    # Send green command to client
+    cmd = f"MAKE_GREEN|{signal_id}|{lane_id}"
+    sock.sendto(cmd.encode(), (client_addr, client_port))
+
+def main():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind((SERVER_IP, SERVER_PORT))
+    print(f"\nRSU Server listening on {SERVER_IP}:{SERVER_PORT}")
+
+    try:
+        while True:
+            data, addr = s.recvfrom(4096)
+            msg = data.decode()
+            try:
+                msg_dict = ast.literal_eval(msg)
+            except Exception:
+                print("Malformed message:", msg)
+                continue
+
+            signal_id = msg_dict["signal_id"]
+            client_port = msg_dict.get("client_port", 9998)
+            client_ip = addr[0]
+            print(f"\n\033[94m=== Junction '{signal_id}' Report ===\033[0m")
+            lanes = msg_dict["lanes"]
+            maxlen = max((len(str(l)) for l in lanes), default=0)
+            for lane, info in lanes.items():
+                lane_lbl = f"Lane '{lane}'".ljust(maxlen + 7)
+                count_str = f"{info['count']} vehicle(s)"
+                if info["ambulance"]:
+                    amb_cnt = info.get("ambulance_count", 1)
+                    print(f"\033[93m  {lane_lbl}: {count_str} | 🚑  {amb_cnt} ambulance(s) [EMERGENCY | Urgency: {info['urgency']}] \033[0m")
+                    clear_traffic_and_command(signal_id, lane, client_ip, client_port, s)
+                else:
+                    print(f"  {lane_lbl}: {count_str}")
+            print("\033[90m" + "=" * (maxlen + 50) + "\033[0m")
+    except KeyboardInterrupt:
+        print("\nServer stopped.")
+    finally:
+        s.close()
+
+if __name__ == "__main__":
+    main()
+
+multiclient***********************************
+import os
+import sys
+import traci
+import socket
+import time
+import random
+import threading
+
+if 'SUMO_HOME' not in os.environ:
+    sys.exit("Please declare environment variable 'SUMO_HOME'")
+tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+sys.path.append(tools)
+
+RSU_RANGE = 100
+SERVER_IP = "127.0.0.1"
+SERVER_PORT = 9999
+CLIENT_PORT = 9998  # For receiving commands from server
+
+AMBULANCE_PROB = 0.1
+AMBULANCE_URGENCY = "HIGH"
+
+def get_signal_positions_and_incoming_lanes():
+    signal_data = {}
+    for tl_id in traci.trafficlight.getIDList():
+        lanes = traci.trafficlight.getControlledLanes(tl_id)
+        incoming_lanes = []
+        for l in lanes:
+            # Only include lanes that are not internal and have incoming connections
+            if not l.startswith(":"):
+                incoming_lanes.append(l)
+        if incoming_lanes:
+            pos = traci.lane.getShape(incoming_lanes[0])[0]
+            signal_data[tl_id] = (pos, incoming_lanes)
+    return signal_data
+
+def assign_ambulances():
+    ambulance_ids = set()
+    for vid in traci.vehicle.getIDList():
+        if random.random() < AMBULANCE_PROB:
+            try:
+                traci.vehicle.setType(vid, "ambulance")
+            except Exception:
+                pass
+            traci.vehicle.setColor(vid, (255, 0, 0))
+            ambulance_ids.add(vid)
+    return ambulance_ids
+
+def lane_vehicle_status(rsu_lanes, rsu_pos, ambulance_ids):
+    lane_status = {lane: {"count": 0, "ambulance_count": 0, "ambulance": False, "urgency": None} for lane in rsu_lanes}
+    for vid in traci.vehicle.getIDList():
+        pos = traci.vehicle.getPosition(vid)
+        dist = ((pos[0] - rsu_pos[0]) ** 2 + (pos[1] - rsu_pos[1]) ** 2) ** 0.5
+        if dist <= RSU_RANGE:
+            lane = traci.vehicle.getLaneID(vid)
+            if lane in rsu_lanes:
+                lane_status[lane]["count"] += 1
+                if vid in ambulance_ids:
+                    lane_status[lane]["ambulance_count"] += 1
+                    lane_status[lane]["ambulance"] = True
+                    lane_status[lane]["urgency"] = AMBULANCE_URGENCY
+    return lane_status
+
+def listen_for_commands(traci, running_flag):
+    """
+    Listen for green signal commands from the server and change lights accordingly.
+    """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind(('', CLIENT_PORT))
+    sock.settimeout(1.0)
+    print(f"Client listening for signal commands on port {CLIENT_PORT}")
+    while running_flag[0]:
+        try:
+            data, addr = sock.recvfrom(1024)
+            msg = data.decode()
+            if msg.startswith("MAKE_GREEN"):
+                # Command format: MAKE_GREEN|signal_id|lane_id
+                _, signal_id, lane_id = msg.strip().split("|")
+                print(f"\033[92m[COMMAND] Setting signal {signal_id} green for lane {lane_id}\033[0m")
+                make_lane_green(traci, signal_id, lane_id)
+        except socket.timeout:
+            continue
+        except Exception as e:
+            print(f"Command listener error: {e}")
+    sock.close()
+
+def make_lane_green(traci, signal_id, lane_id):
+    # Find controlled links for the signal
+    try:
+        links = traci.trafficlight.getControlledLinks(signal_id)
+        current_program = traci.trafficlight.getProgram(signal_id)
+        green_states = list(traci.trafficlight.getRedYellowGreenState(signal_id))
+
+        # Find which index in the state corresponds to our lane
+        found = False
+        for i, link_group in enumerate(links):
+            for sub_link in link_group:
+                if sub_link[0] == lane_id:
+                    green_states[i] = 'G'
+                    found = True
+        if found:
+            new_state = ''.join(green_states)
+            traci.trafficlight.setRedYellowGreenState(signal_id, new_state)
+            print(f"\033[92m[TL CONTROL] Signal {signal_id} state set to {new_state} (green for {lane_id})\033[0m")
+    except Exception as e:
+        print(f"Failed to set green for {signal_id} {lane_id}: {e}")
+
+def run():
+    sumo_binary = os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui')
+    sumo_cmd = [sumo_binary, "-c", "config/simulation.sumocfg"]
+    traci.start(sumo_cmd)
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    signal_data = get_signal_positions_and_incoming_lanes()
+    ambulance_ids = set()
+    assigned = False
+
+    print(f"Discovered signals (RSUs): {signal_data}")
+
+    running_flag = [True]
+    listener_thread = threading.Thread(target=listen_for_commands, args=(traci, running_flag))
+    listener_thread.daemon = True
+    listener_thread.start()
+
+    try:
+        while traci.simulation.getMinExpectedNumber() > 0:
+            traci.simulationStep()
+            if not assigned:
+                ambulance_ids = assign_ambulances()
+                assigned = True
+
+            for tl_id, (rsu_pos, rsu_lanes) in signal_data.items():
+                lane_status = lane_vehicle_status(rsu_lanes, rsu_pos, ambulance_ids)
+                msg = {
+                    "signal_id": tl_id,
+                    "lanes": lane_status,
+                    "client_port": CLIENT_PORT
+                }
+                # V2V dummy message for ambulances
+                for lane, info in lane_status.items():
+                    if info["ambulance"]:
+                        print(f"\033[91m🚨 [V2V] Ambulance detected at signal {tl_id}, lane {lane} | Urgency: {AMBULANCE_URGENCY} ({info['ambulance_count']}) 🚨\033[0m")
+                s.sendto(str(msg).encode(), (SERVER_IP, SERVER_PORT))
+            time.sleep(0.2)
+    finally:
+        running_flag[0] = False
+        listener_thread.join(timeout=1.0)
+        traci.close()
+        s.close()
+
+if __name__ == "__main__":
+    run()
