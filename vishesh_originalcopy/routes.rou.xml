@@ -70,7 +70,7 @@
     <vehicle id="17" type="car" depart="17.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="-797793132 -1227525198 1312730460#1 1312730460#2 -133260223#2 133260370#3"/>
     </vehicle>
-    <vehicle id="18" type="car" depart="18.00" departLane="best" departPos="base" departSpeed="max">
+    <vehicle id="18" type="emergency" depart="18.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="661652619#0 52243782#1 172845865#4 172845865#5 172845865#6 759364439#0 759364439#1 1312730460#2 1312730460#3 -172851193#2 -172851193#1 -172851193#0 172851193#0 172851193#1"/>
     </vehicle>
     <vehicle id="19" type="car" depart="19.00" departLane="best" departPos="base" departSpeed="max">
@@ -110,7 +110,7 @@
     <vehicle id="38" type="car" depart="38.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="687321162 1203937670 169098725#0 169098725#1 1311716614#0 1311716614#1 1311716614#2"/>
     </vehicle>
-    <vehicle id="41" type="car" depart="41.00" departLane="best" departPos="base" departSpeed="max">
+    <vehicle id="41" type="emergency" depart="41.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="172845865#6 759364439#0 759364439#1 1312730460#2 1312730460#3 -172851193#2 -172851193#1 -172851193#0 687319738#6"/>
     </vehicle>
     <vehicle id="42" type="car" depart="42.00" departLane="best" departPos="base" departSpeed="max">
@@ -119,7 +119,7 @@
     <vehicle id="44" type="car" depart="44.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="-133260224#3 -133260224#2 172845865#5 172845865#6 759364439#0 133260370#2 -133260223#1"/>
     </vehicle>
-    <vehicle id="45" type="car" depart="45.00" departLane="best" departPos="base" departSpeed="max">
+    <vehicle id="45" type="emergency" depart="45.00" departLane="best" departPos="base" departSpeed="max">
         <route edges="-133260370#3 -133260370#2 759364439#1 759364439#2 -1311716614#3 -1311716614#2 -1311716614#1 -212982983 172851193#2"/>
     </vehicle>
     <vehicle id="46" type="car" depart="46.00" departLane="best" departPos="base" departSpeed="max">
