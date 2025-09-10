@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <!-- Vehicle types with more variety -->
+    <vType id="car1" vClass="passenger" speedDev="0.1" sigma="0.5" minGap="2.5" accel="2.6" decel="4.5" length="4.5"/>
+    <vType id="car2" vClass="passenger" speedDev="0.15" sigma="0.7" minGap="2.0" accel="2.8" decel="4.5" length="4.0"/>
+    <vType id="bus" vClass="bus" speedDev="0.1" sigma="0.4" minGap="3.0" accel="1.5" decel="3.0" length="12.0"/>
+    <vType id="truck" vClass="truck" speedDev="0.1" sigma="0.6" minGap="3.0" accel="1.3" decel="2.5" length="16.0"/>
+    <vType id="emergency" vClass="emergency" speedDev="0.1" sigma="0.3" minGap="2.5" accel="3.0" decel="5.0" length="5.0"/>
+
+    <!-- More routes covering different parts of the network -->
+    <route id="r0" edges="687319738#8 687319738#9"/>
+    <route id="r1" edges="-687319738#9 -687319738#8"/>
+    <route id="r2" edges="687319738#8 687319738#9 735381318#0"/>
+    <route id="r3" edges="735381318#0 -687319738#9 -687319738#8"/>
+    <route id="r4" edges="687319738#8 735381318#0 -735381318#0 -687319738#8"/>
+    <route id="r5" edges="-735381318#0 735381318#0"/>
+    
+    <!-- Vehicle flows with different departure times and frequencies -->
+    <!-- Regular passenger cars -->
+    <flow id="car1_flow1" type="car1" route="r0" begin="0" end="3600" number="50" period="60" departLane="random" departSpeed="max"/>
+    <flow id="car1_flow2" type="car1" route="r1" begin="0" end="3600" number="50" period="60" departLane="random" departSpeed="max"/>
+    <flow id="car2_flow1" type="car2" route="r2" begin="300" end="3600" number="40" period="45" departLane="random" departSpeed="max"/>
+    <flow id="car2_flow2" type="car2" route="r3" begin="300" end="3600" number="40" period="45" departLane="random" departSpeed="max"/>
+    
+    <!-- Public transport -->
+    <flow id="bus_flow1" type="bus" route="r4" begin="0" end="3600" number="10" period="300" departLane="best" departSpeed="max"/>
+    <flow id="bus_flow2" type="bus" route="r5" begin="150" end="3600" number="10" period="300" departLane="best" departSpeed="max"/>
+    
+    <!-- Commercial vehicles -->
+    <flow id="truck_flow1" type="truck" route="r0" begin="600" end="3000" number="15" period="120" departLane="slow" departSpeed="max"/>
+    <flow id="truck_flow2" type="truck" route="r1" begin="600" end="3000" number="15" period="120" departLane="slow" departSpeed="max"/>
+    
+    <!-- Emergency vehicles (fewer in number) -->
+    <flow id="emergency_flow" type="emergency" route="r0" begin="0" end="3600" number="3" period="1200" departLane="best" departSpeed="max"/>
+</routes>

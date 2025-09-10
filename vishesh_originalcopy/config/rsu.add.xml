@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- RSU Type Definitions -->
+    <vType id="rsu_vehicle" vClass="custom1" color="#00FF00" width="3" length="3" 
+           imgFile="rsu.png" layer="10" 
+           emissionClass="HBEFA3/PC_G_EU4" 
+           guiShape="pedestrian"
+           minGap="0.1"
+           accel="0.0"
+           decel="0.0"
+           sigma="0.0"
+           tau="0.0"
+           speedDev="0.0"/>
+    
+    <!-- RSUs will be added dynamically by the Python script -->
+    
+    <!-- RSU Communication Parameters -->
+    <vTypeDistribution id="rsu_dist">
+        <vType id="rsu_type1" vClass="custom1" color="#00FF00" probability="0.5" 
+               emissionClass="HBEFA3/PC_G_EU4"/>
+        <vType id="rsu_type2" vClass="custom1" color="#00AAFF" probability="0.5" 
+               emissionClass="HBEFA3/HDV_G_EU4"/>
+    </vTypeDistribution>
+    
+    <!-- RSU Communication Ranges -->
+    <variableSpeedSign id="rsu_comm_range" lanes=":10074640034_0_0 :10074640034_7_0">
+        <step time="0" speed="0"/>
+    </variableSpeedSign>
+    
+    <!-- RSU Detection Areas -->
+    <e1Detector id="rsu1_detector" lane=":10074640034_0_0" pos="0" freq="1" 
+               file="rsu1_output.xml" friendlyPos="true"/>
+    <e1Detector id="rsu2_detector" lane=":10074640032_4_0" pos="0" freq="1" 
+               file="rsu2_output.xml" friendlyPos="true"/>
+    
+    <!-- RSU Visualization (will be updated dynamically) -->
+    <poi id="rsu_poi_template" type="rsu" color="#00FF00" layer="10" 
+         width="5" height="5" imgFile="rsu.png"/>
+    
+</additional>

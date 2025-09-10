@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" oneway="0"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" oneway="0"/>
+</types>

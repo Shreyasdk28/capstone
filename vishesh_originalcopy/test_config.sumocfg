@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="net_clean_final.net.xml"/>
+        <route-files value="routes_adaptive.rou.xml"/>
+        <additional-files value="config/rsu.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+        <step-length value="0.1"/>
+    </time>
+    <processing>
+        <time-to-teleport value="-1"/>
+        <time-to-impatience value="300"/>
+        <ignore-route-errors value="true"/>
+    </processing>
+    <report>
+        <no-step-log value="true"/>
+        <no-warnings value="false"/>
+    </report>
+</configuration>

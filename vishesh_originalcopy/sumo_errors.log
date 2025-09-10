@@ -1,0 +1,3 @@
+Error: Invalid Car-Following-Model Attribute accel. Must be greater than 0
+Error: Invalid parsing embedded VType
+Quitting (on error).
