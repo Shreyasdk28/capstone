@@ -3,6 +3,31 @@
         <opengl value="true"/>
         <background value="#FFFFFF"/>
         <showGrid value="false"/>
+        
+        <!-- Enhanced vehicle visualization -->
+        <vehicle>
+            <vehicle value="#FF0000" width="2.0" min_size="5.0" show_blinker="true" draw_reverse="true"/>
+            <vehicle_scale value="true" min_size="5.0" max_size="10.0"/>
+            <vehicle_text value="id" size="50" color="#000000" bg_color="#FFFFFF" show_name="true"/>
+            <vehicle_size_exaggeration value="1.2"/>
+        </vehicle>
+        
+        <!-- Enhanced RSU visualization -->
+        <poi>
+            <poi_layer value="10"/>
+            <poi_color value="255,0,0"/>
+            <poi_size value="8"/>
+            <poi_text value="RSU" size="50" color="#000000" bg_color="#FFFFFF"/>
+        </poi>
+        
+        <!-- Show detectors -->
+        <detector>
+            <show_detectors value="true"/>
+            <detector_color value="0,255,0"/>
+            <e1_detector_color value="0,255,0"/>
+            <e2_detector_color value="0,200,0"/>
+            <e3_detector_color value="0,150,0"/>
+        </detector>
     </scheme>
     
     <viewport y="0" x="0" zoom="100" z="100"/>

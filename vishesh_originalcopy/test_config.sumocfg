@@ -2,7 +2,7 @@
 <configuration>
     <input>
         <net-file value="net_clean_final.net.xml"/>
-        <route-files value="routes_adaptive.rou.xml"/>
+        <route-files value="routes_final.rou.xml"/>
         <additional-files value="config/rsu.add.xml"/>
     </input>
     <time>
@@ -12,11 +12,10 @@
     </time>
     <processing>
         <time-to-teleport value="-1"/>
-        <time-to-impatience value="300"/>
         <ignore-route-errors value="true"/>
     </processing>
     <report>
+        <verbose value="true"/>
         <no-step-log value="true"/>
-        <no-warnings value="false"/>
     </report>
 </configuration>

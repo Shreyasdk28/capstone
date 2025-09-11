@@ -4,10 +4,12 @@ Combined Adaptive Traffic Control and V2V Communication System
 """
 import os
 import sys
-import traci
+import time
 import random
 import math
-import time
+import traci
+import sumolib
+from sumolib import geomhelper
 from collections import defaultdict, deque
 
 # Add SUMO tools to Python path
@@ -19,36 +21,31 @@ tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
 sys.path.append(tools)
 
 class RSU:
-    def __init__(self, rsu_id, position, edges, range=100):
+    def __init__(self, rsu_id, edge_id, lane_pos, range=100):
         self.id = rsu_id
-        self.position = position
+        self.position = None  # Will be set when added to simulation
+        self.edge_id = edge_id
+        self.edge_id = edge_id
+        self.lane_pos = lane_pos
         self.range = range
-        self.edges = edges
         self.connected_vehicles = set()
         self.edge_vehicle_count = defaultdict(int)
         self.messages = deque(maxlen=100)  # Store recent messages
+        self.poi_id = f"rsu_{rsu_id}"
+        self.range_polygon = f"rsu_range_{rsu_id}"
+        self.detector_id = f"e1detector_{rsu_id}"
     
     def update_vehicle_count(self, vehicle_positions):
-        """Update vehicle count for each edge in range"""
-        self.edge_vehicle_count.clear()
-        for edge in self.edges:
-            self.edge_vehicle_count[edge] = 0
-            
+        """Update vehicle count for vehicles in range"""
+        self.connected_vehicles.clear()
+        
+        # Count vehicles in range of this RSU
         for veh_id, pos in vehicle_positions.items():
             if self.in_range(pos):
-                # Find the closest edge
-                min_dist = float('inf')
-                closest_edge = None
-                for edge in self.edges:
-                    edge_pos = self.get_edge_position(edge)
-                    if edge_pos is None:
-                        continue
-                    dist = ((pos[0]-edge_pos[0])**2 + (pos[1]-edge_pos[1])**2)**0.5
-                    if dist < min_dist:
-                        min_dist = dist
-                        closest_edge = edge
-                if closest_edge is not None:
-                    self.edge_vehicle_count[closest_edge] += 1
+                self.connected_vehicles.add(veh_id)
+        
+        # Update edge vehicle count for this RSU's edge
+        self.edge_vehicle_count[self.edge_id] = len(self.connected_vehicles)
     
     def get_edge_position(self, edge_id):
         """Get position of an edge (approximated as the middle point)"""
@@ -123,7 +120,7 @@ class Vehicle:
         return list(self.message_queue)
 
 def create_rsus():
-    """Create RSUs at intersections and along roads at 200m intervals"""
+    """Create RSUs along roads at 200m intervals"""
     rsus = []
     rsu_id = 1
     
@@ -148,47 +145,37 @@ def create_rsus():
         else:
             raise RuntimeError("Could not load any network file. Please check if the .net.xml files exist.")
     
-    print(f"Creating RSUs for network: {net.getNetName()}")
     
-    # 1. Add RSUs at intersections (nodes)
-    for node in net.getNodes():
-        x, y = node.getCoord()
-        connected_edges = [e.getID() for e in node.getOutgoing() + node.getIncoming()]
-        rsus.append(RSU(rsu_id, (x, y), connected_edges))
-        rsu_id += 1
-    
-    # 2. Add RSUs along edges at 200m intervals
+    # Add RSUs along edges at 200m intervals
     for edge in net.getEdges():
-        if edge.getLength() > 200:  # Only add RSUs to longer edges
-            num_rsus = int(edge.getLength() / 200)
-            if num_rsus > 0:
-                for i in range(1, num_rsus + 1):
-                    pos = (i * 200) / edge.getLength()  # Position along edge (0-1)
-                    x, y = edge.getFromNode().getCoord()
-                    x2, y2 = edge.getToNode().getCoord()
-                    # Interpolate position
-                    rsu_x = x + (x2 - x) * pos
-                    rsu_y = y + (y2 - y) * pos
-                    rsus.append(RSU(rsu_id, (rsu_x, rsu_y), [edge.getID()]))
-                    rsu_id += 1
+        edge_length = edge.getLength()
+        if edge_length < 50:  # Skip very short edges
+            continue
+            
+        # Calculate number of RSUs to place along this edge (at least 1)
+        num_rsus = max(1, int(edge_length / 200))
+        interval = edge_length / (num_rsus + 1)
+        
+        for i in range(1, num_rsus + 1):
+            pos = i * interval
+            # Create the RSU object without coordinates for now
+            rsu = RSU(rsu_id, edge.getID(), pos, range=100)
+            rsus.append(rsu)
+            rsu_id += 1
     
-    print(f"Created {len(rsus)} RSUs in total")
+    print(f"Created {len(rsus)} RSUs along the roads")
     return rsus
 
 def adjust_traffic_lights(rsus, vehicles):
-    """Adjust traffic lights and handle V2V communication"""
-    # Update vehicle positions and handle V2V communication
+    """Adjust traffic lights based on RSU vehicle counts"""
+    # Update vehicle positions
     vehicle_positions = {}
-    vehicle_objects = {}
-    
-    # Get all vehicles and their positions
     for veh_id in traci.vehicle.getIDList():
         try:
             pos = traci.vehicle.getPosition(veh_id)
             if veh_id not in vehicles:
                 vehicles[veh_id] = Vehicle(veh_id)
             vehicle_positions[veh_id] = pos
-            vehicle_objects[veh_id] = vehicles[veh_id]
         except:
             continue
     
@@ -196,78 +183,101 @@ def adjust_traffic_lights(rsus, vehicles):
     for rsu in rsus:
         rsu.update_vehicle_count(vehicle_positions)
     
-    # V2V Communication
-    for veh_id, vehicle in vehicle_objects.items():
-        neighbors = vehicle.get_neighbors(vehicle_objects)
-        if neighbors:
-            # Example: Send speed information to neighbors
-            speed = vehicle.get_speed()
-            if speed > 0:  # Only send if vehicle is moving
-                neighbor_ids = [n[0] for n in neighbors]
-                vehicle.send_message(f"Speed: {speed:.1f} m/s", neighbor_ids)
-        
-        # Process received messages
-        messages = vehicle.receive_messages()
-        if messages:
-            # Example: React to messages (e.g., slow down if receiving warning)
-            for msg_time, msg in messages:
-                if "warning" in msg.lower():
-                    # Slow down if warning received
-                    traci.vehicle.slowDown(veh_id, max(0, vehicle.get_speed() * 0.8), 1)
-    
-    # First, group RSUs by their nearest traffic light
-    tls_dict = {}
+    # Group RSUs by their nearest traffic light
+    tls_rsu_groups = defaultdict(list)
     for rsu in rsus:
-        # Find nearest traffic light to this RSU
-        min_dist = float('inf')
-        nearest_tls = None
-        
-        for tls_id in traci.trafficlight.getIDList():
-            tls_pos = traci.junction.getPosition(tls_id)
-            dist = ((rsu.position[0] - tls_pos[0])**2 + (rsu.position[1] - tls_pos[1])**2)**0.5
-            if dist < min_dist and dist < 100:  # Only consider RSUs within 100m of a traffic light
-                min_dist = dist
-                nearest_tls = tls_id
-        
-        if nearest_tls:
-            if nearest_tls not in tls_dict:
-                tls_dict[nearest_tls] = []
-            tls_dict[nearest_tls].append(rsu)
-    
-    # Adjust traffic lights based on RSU data
-    for tls_id, tls_rsus in tls_dict.items():
         try:
-            # Calculate average vehicle density for this traffic light's RSUs
-            total_vehicles = 0
-            total_rsus = len(tls_rsus)
+            # Find nearest traffic light to this RSU
+            min_dist = float('inf')
+            nearest_tls = None
             
-            for rsu in tls_rsus:
-                # Update RSU color based on its own vehicle count
-                rsu_vehicles = sum(rsu.edge_vehicle_count.values())
-                total_vehicles += rsu_vehicles
+            for tls_id in traci.trafficlight.getIDList():
+                tls_pos = traci.junction.getPosition(tls_id)
+                dist = ((rsu.position[0]-tls_pos[0])**2 + (rsu.position[1]-tls_pos[1])**2)**0.5
+                if dist < min_dist and dist < 100:  # Only consider TLS within 100m
+                    min_dist = dist
+                    nearest_tls = tls_id
+            
+            if nearest_tls is not None:
+                tls_rsu_groups[nearest_tls].append(rsu)
+        except Exception as e:
+            print(f"Error finding nearest TLS for RSU {rsu.id}: {e}")
+    
+    # Adjust each traffic light based on nearby RSU data
+    for tls_id, nearby_rsus in tls_rsu_groups.items():
+        try:
+            if not nearby_rsus:
+                continue
                 
-                # Update RSU visualization
-                if hasattr(rsu, 'veh_id'):
-                    if rsu_vehicles > 5:
-                        traci.vehicle.setColor(rsu.veh_id, (255, 0, 0, 255))  # Red
-                    elif rsu_vehicles > 2:
-                        traci.vehicle.setColor(rsu.veh_id, (255, 255, 0, 255))  # Yellow
-                    else:
-                        traci.vehicle.setColor(rsu.veh_id, (0, 255, 0, 255))  # Green
+            # Calculate average vehicle count from nearby RSUs
+            total_vehicles = sum(rsu.edge_vehicle_count.get(rsu.edge_id, 0) for rsu in nearby_rsus)
+            avg_vehicles = total_vehicles / len(nearby_rsus)
             
-            # Calculate average vehicle density per RSU
-            avg_vehicles = total_vehicles / max(1, total_rsus)
+            # Get current phase and timing
+            current_phase = traci.trafficlight.getPhase(tls_id)
+            time_in_phase = traci.trafficlight.getPhaseDuration(tls_id) - traci.trafficlight.getNextSwitch(tls_id)
             
-            # Adjust traffic light timing based on density
+            # Adjust timing based on vehicle density
             if avg_vehicles > 5:  # Heavy traffic
-                traci.trafficlight.setPhaseDuration(tls_id, max(5, traci.trafficlight.getNextSwitch(tls_id) - 1))
+                new_duration = max(10, time_in_phase + 2)  # Extend green time
+                traci.trafficlight.setPhaseDuration(tls_id, new_duration)
+                
             elif avg_vehicles > 2:  # Medium traffic
-                traci.trafficlight.setPhaseDuration(tls_id, 10)  # Default timing
+                # Keep default timing
+                pass
+                
             else:  # Light traffic
-                traci.trafficlight.setPhaseDuration(tls_id, min(30, traci.trafficlight.getNextSwitch(tls_id) + 1))
+                new_duration = max(5, time_in_phase - 1)  # Reduce green time
+                traci.trafficlight.setPhaseDuration(tls_id, new_duration)
+                
+            # Log the adjustment
+            print(f"TLS {tls_id}: Avg vehicles={avg_vehicles:.1f}, Phase={current_phase}, "
+                  f"Time in phase={time_in_phase:.1f}s")
                 
         except Exception as e:
             print(f"Error adjusting traffic light {tls_id}: {e}")
+
+def add_rsus_to_simulation(rsus):
+    """Add RSUs to the simulation as POIs with detectors"""
+    for rsu in rsus:
+        try:
+            # Get the first lane of the edge to place the RSU
+            lane_id = traci.edge.getLaneID(rsu.edge_id, 0)
+            
+            # Use a temporary vehicle to find the precise (x, y) coordinates
+            temp_veh_id = f"temp_veh_for_rsu_{rsu.id}"
+            traci.route.add(f"route_for_{temp_veh_id}", [rsu.edge_id])
+            traci.vehicle.add(temp_veh_id, f"route_for_{temp_veh_id}", departLane=0, departPos=rsu.lane_pos)
+            x, y = traci.vehicle.getPosition(temp_veh_id)
+            traci.vehicle.remove(temp_veh_id)
+            
+            # Update the RSU object with its final position
+            rsu.position = (x, y)
+            
+            # Add the RSU as a POI at the correct position
+            traci.poi.add(rsu.poi_id, x, y, color=(255, 0, 0), poiType="rsu")
+            
+            # Add a range indicator (yellow circle)
+            traci.polygon.add(rsu.range_polygon, 
+                            [(x-rsu.range, y-rsu.range), 
+                             (x-rsu.range, y+rsu.range),
+                             (x+rsu.range, y+rsu.range),
+                             (x+rsu.range, y-rsu.range)],
+                            color=(255, 255, 0, 50), fill=True, layer=1)
+            
+            # Add a detector for this RSU
+            try:
+                # Find the closest lane to this RSU's position
+                lane_id = traci.simulation.convertRoad(x, y, isGeo=False, vClass="passenger")
+                if lane_id and lane_id[0]:
+                    # Add detector 10m from the start of the lane
+                    traci.lanearea.add(rsu.detector_id, lane_id[0], pos=10, length=5)
+                    print(f"Added detector {rsu.detector_id} for RSU {rsu.id} on lane {lane_id[0]}")
+            except Exception as e:
+                print(f"Error adding detector for RSU {rsu.id}: {e}")
+                
+        except Exception as e:
+            print(f"Error adding RSU {rsu.id}: {e}")
 
 def run_simulation():
     """Main simulation loop"""
@@ -276,65 +286,41 @@ def run_simulation():
         if 'SUMO_HOME' not in os.environ:
             os.environ['SUMO_HOME'] = '/usr/share/sumo'
         
-        # Basic SUMO command
+        # SUMO command with optimized parameters
         sumo_binary = os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui')
         config_file = os.path.abspath('test_config.sumocfg')
         
-        # Simple command without extra parameters that might cause issues
-        sumo_cmd = [sumo_binary, "-c", config_file]
+        # Simplified SUMO command with logging enabled
+        sumo_cmd = [
+            sumo_binary,
+            "-c", config_file,
+            "--start",
+            "--quit-on-end",
+            "--log-file", "sumo.log",
+            "--verbose"
+        ]
         
         print("Starting SUMO with command:", " ".join(sumo_cmd))
-        
-        # Add a small delay to ensure SUMO is fully started
-        time.sleep(2)
         
         # Start TraCI connection
         traci.start(sumo_cmd)
         
-        # Set up visualization
-        traci.gui.setSchema("View #0", "real world")
+        # Set up visualization if using GUI
+        if "--gui" in sys.argv:
+            try:
+                view_ids = traci.gui.getIDList()
+                if view_ids:
+                    traci.gui.setSchema(view_ids[0], "real world")
+                    traci.gui.setZoom(view_ids[0], 2000)  # Zoom out to see more of the network
+            except Exception as e:
+                print(f"Warning: Could not set up GUI view: {e}")
         
-        # Create RSUs
+        # Create and add RSUs to the simulation
         rsus = create_rsus()
+        add_rsus_to_simulation(rsus)
         vehicles = {}
         print(f"Created {len(rsus)} RSUs")
-        
-        # Add RSUs as special vehicles for visualization
-        for rsu in rsus:
-            try:
-                veh_id = f"rsu_{rsu.id}"
-                x, y = rsu.position
-                # Add a special vehicle to represent the RSU
-                # Using 'rsu_vehicle' type defined in rsu.add.xml
-                try:
-                    traci.vehicle.add(
-                        veh_id, 
-                        "",  # route ID (empty for teleport)
-                        typeID="rsu_vehicle",
-                        depart=0,
-                        departPos=0,
-                        departSpeed=0,
-                        departLane=0
-                    )
-                    traci.vehicle.moveToXY(veh_id, "", 0, x, y, keepRoute=2)
-                    traci.vehicle.setColor(veh_id, (0, 255, 0, 255))  # Green
-                    traci.vehicle.setSpeed(veh_id, 0)  # Stationary
-                    traci.vehicle.setWidth(veh_id, 3)  # Make RSUs more visible
-                    traci.vehicle.setLength(veh_id, 3)
-                    traci.vehicle.setLine(veh_id, f"RSU-{rsu.id}")  # Show RSU ID as label
-                    rsu.veh_id = veh_id
-                    print(f"Added RSU {rsu.id} as vehicle {veh_id} at position {x},{y}")
-                except Exception as e:
-                    print(f"Error adding RSU vehicle {rsu.id}: {e}")
-                    # Fallback to POI if vehicle creation fails
-                    try:
-                        traci.poi.add(f"rsu_{rsu.id}", x, y, (0, 255, 0, 255), 0, "rsu", 5, 5)
-                        print(f"Added RSU {rsu.id} as POI at position {x},{y}")
-                    except Exception as e2:
-                        print(f"Failed to add RSU {rsu.id} as POI: {e2}")
-            except Exception as e:
-                print(f"Error adding RSU {rsu.id}: {e}")
-        
+
         # Main simulation loop
         step = 0
         max_steps = 3600  # About 30 minutes of simulated time
