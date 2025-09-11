@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-11 13:20:09.855438 by osmWebWizard.py UNKNOWN
+<configuration>
+    <net-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.net.xml.gz"/>
+    <output-trip-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bus.trips.xml"/>
+    <route-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bus.rou.xml"/>
+    <prefix value="bus"/>
+    <trip-attributes value="departLane=&quot;best&quot;"/>
+    <fringe-start-attributes value="departSpeed=&quot;max&quot;"/>
+    <vehicle-class value="bus"/>
+    <fringe-factor value="5"/>
+    <vclass value="bus"/>
+    <via-edge-types value="highway.motorway,highway.motorway_link,highway.trunk_link,highway.primary_link,highway.secondary_link,highway.tertiary_link"/>
+    <min-distance value="600.0"/>
+    <min-distance.fringe value="10.0"/>
+    <remove-loops value="True"/>
+    <validate value="True"/>
+    <insertion-density value="4.0"/>
+</configuration>
+-->
+
+<!-- generated on 2025-09-11 13:20:09 by Eclipse SUMO duarouter Version 1.22.0
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.net.xml.gz"/>
+        <route-files value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bus.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bus.trips.xml.tmp"/>
+        <alternatives-output value="NUL"/>
+        <write-trips value="true"/>
+    </output>
+
+    <processing>
+        <remove-loops value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0.0"/>
+        <end value="3600.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus_bus" vClass="bus"/>
+    <trip id="bus0" type="bus_bus" depart="0.00" departLane="best" departSpeed="max" from="-1102818966" to="1109920322" via="-369503735"/>
+    <trip id="bus1" type="bus_bus" depart="288.99" departLane="best" departSpeed="max" from="290642503" to="494985261" via="490718576#2"/>
+    <trip id="bus2" type="bus_bus" depart="577.98" departLane="best" from="-259907733#3" to="55675142#3" via="1286973772"/>
+    <trip id="bus4" type="bus_bus" depart="1155.95" departLane="best" departSpeed="max" from="-1102818966" to="55675142#3" via="-143003891#1"/>
+    <trip id="bus5" type="bus_bus" depart="1444.94" departLane="best" from="490718576#2" to="55675142#0" via="1286973771"/>
+    <trip id="bus8" type="bus_bus" depart="2311.90" departLane="best" departSpeed="max" from="1227996436" to="369503735" via="-37342386"/>
+    <trip id="bus9" type="bus_bus" depart="2600.89" departLane="best" departSpeed="max" from="290642503" to="494985261" via="490718576#2"/>
+    <trip id="bus10" type="bus_bus" depart="2889.88" departLane="best" from="-259907733#3" to="1109920317" via="-143003891#1"/>
+    <trip id="bus11" type="bus_bus" depart="3178.86" departLane="best" from="259907733#2" to="259907733#2" via="369503735"/>
+    <trip id="bus12" type="bus_bus" depart="3467.85" departLane="best" departSpeed="max" from="490718576#0" to="55675142#3" via="-143003891#1"/>
+</routes>

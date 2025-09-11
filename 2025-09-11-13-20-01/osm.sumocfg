@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- edited to include detectors -->
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <!-- compressed network -->
+        <net-file value="osm.net.xml.gz"/>
+
+        <!-- trips / routes -->
+        <route-files value="osm.bicycle.trips.xml,osm.bus.trips.xml,osm.passenger.trips.xml"/>
+
+        <!-- additional: polygons + detectors -->
+        <additional-files value="osm.poly.xml.gz,osm.detectors.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/> <!-- run 1 hour, you can extend -->
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <tls.actuated.jam-threshold value="30"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="osm.view.xml"/>
+    </gui_only>
+
+</sumoConfiguration>

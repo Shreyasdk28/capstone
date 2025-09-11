@@ -1,0 +1,61 @@
+<additional>
+    <!-- Junction: cluster_11909729850_11909729853_248776663_4829061655_#1more -->
+    <laneAreaDetector id="e2_-1109917312_0" lane="-1109917312_0"
+        pos="0" endPos="30.18" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_1109917309_0" lane="1109917309_0"
+        pos="0" endPos="34.31" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_1109920313_0" lane="1109920313_0"
+        pos="108.26" endPos="148.26" freq="300" file="detector_output.xml" friendlyPos="true"/>
+
+    <!-- Junction: cluster_12580905276_12580905277_4829061654_7287551941_#2more -->
+    <laneAreaDetector id="e2_-780479741_0" lane="-780479741_0"
+        pos="0" endPos="36.29" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_-780479741_1" lane="-780479741_1"
+        pos="0" endPos="36.29" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_1109920318_0_0" lane="1109920318#0_0"
+        pos="28.53" endPos="68.53" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_1109920318_0_1" lane="1109920318#0_1"
+        pos="28.53" endPos="68.53" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_1286973772_0" lane="1286973772_0"
+        pos="108.66" endPos="148.66" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    
+    <!-- Additional Junctions -->
+    <!-- Old Kanakapura Road Detectors -->
+    <laneAreaDetector id="e2_142486500_0" lane="142486500_0"
+        pos="33.19" endPos="73.19" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    
+    <!-- Krishna Rajendra Road Detectors -->
+    <laneAreaDetector id="e2_1109917312_1" lane="-1109917312_0"
+        pos="0" endPos="30.00" freq="300" file="detector_output.xml" friendlyPos="true"/>
+        
+    <!-- Model House Street Detectors -->
+    <laneAreaDetector id="e2_1109920317_0" lane="-1109920317_0"
+        pos="68.30" endPos="108.30" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_143003891_0" lane="-143003891#0_0"
+        pos="0" endPos="34.05" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    
+    <!-- 1st Main Road Detectors -->
+    <laneAreaDetector id="e2_259907733_0" lane="-259907733#0_0"
+        pos="110.73" endPos="150.73" freq="300" file="detector_output.xml" friendlyPos="true"/>
+        
+    <!-- South End Road Detector -->
+    <laneAreaDetector id="e2_1109920321_0" lane="1109920321#0_0"
+        pos="0" endPos="34.50" freq="300" file="detector_output.xml" friendlyPos="true"/>
+        
+    <!-- Main Road Detectors -->
+    <laneAreaDetector id="e2_780479741_0" lane="780479741_0"
+        pos="0" endPos="36.29" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    <laneAreaDetector id="e2_780479741_1" lane="780479741_1"
+        pos="0" endPos="36.29" freq="300" file="detector_output.xml" friendlyPos="true"/>
+        
+    <!-- Service Road Detectors -->
+    <laneAreaDetector id="e2_1227996435_0" lane="-1227996435_0"
+        pos="33.63" endPos="73.63" freq="300" file="detector_output.xml" friendlyPos="true"/>
+    
+    <laneAreaDetector id="e2_1102818965_0" lane="-1102818965_0"
+        pos="0" endPos="32.69" freq="300" file="detector_output.xml" friendlyPos="true"/>
+        
+    <!-- Main Road Detector -->
+    <laneAreaDetector id="e2_55675142_0" lane="55675142#0_0"
+        pos="0" endPos="36.44" freq="300" file="detector_output.xml" friendlyPos="true"/>
+</additional>

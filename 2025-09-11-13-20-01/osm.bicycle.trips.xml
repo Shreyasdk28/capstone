@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-11 13:20:09.694790 by osmWebWizard.py UNKNOWN
+<configuration>
+    <net-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.net.xml.gz"/>
+    <output-trip-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bicycle.trips.xml"/>
+    <route-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bicycle.rou.xml"/>
+    <prefix value="bike"/>
+    <trip-attributes value="departLane=&quot;best&quot;"/>
+    <fringe-start-attributes value="departSpeed=&quot;max&quot;"/>
+    <vehicle-class value="bicycle"/>
+    <fringe-factor value="2"/>
+    <vclass value="bicycle"/>
+    <via-edge-types value="highway.motorway,highway.motorway_link,highway.trunk_link,highway.primary_link,highway.secondary_link,highway.tertiary_link"/>
+    <max-distance value="8000.0"/>
+    <remove-loops value="True"/>
+    <validate value="True"/>
+    <insertion-density value="6.0"/>
+</configuration>
+-->
+
+<!-- generated on 2025-09-11 13:20:09 by Eclipse SUMO duarouter Version 1.22.0
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.net.xml.gz"/>
+        <route-files value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bicycle.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/Users/apple/Sumo/2025-09-11-13-20-01/osm.bicycle.trips.xml.tmp"/>
+        <alternatives-output value="NUL"/>
+        <write-trips value="true"/>
+    </output>
+
+    <processing>
+        <remove-loops value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0.0"/>
+        <end value="3600.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bike_bicycle" vClass="bicycle"/>
+    <trip id="bike0" type="bike_bicycle" depart="0.00" departLane="best" from="143003891#1" to="-1109920317"/>
+    <trip id="bike1" type="bike_bicycle" depart="169.37" departLane="best" from="-369503735" to="-37342386"/>
+    <trip id="bike2" type="bike_bicycle" depart="338.74" departLane="best" from="-309528977#0" to="259907733#1"/>
+    <trip id="bike3" type="bike_bicycle" depart="508.12" departLane="best" from="55675142#1" to="-143003891#0"/>
+    <trip id="bike4" type="bike_bicycle" depart="677.49" departLane="best" from="1286973772" to="-1109920317"/>
+    <trip id="bike5" type="bike_bicycle" depart="846.86" departLane="best" from="-259907733#3" to="1109920321#0"/>
+    <trip id="bike6" type="bike_bicycle" depart="1016.23" departLane="best" departSpeed="max" from="-1102818965" to="-309528977#1"/>
+    <trip id="bike7" type="bike_bicycle" depart="1185.61" departLane="best" from="143003891#1" to="1227996435"/>
+    <trip id="bike8" type="bike_bicycle" depart="1354.98" departLane="best" from="-259907733#3" to="1109920313"/>
+    <trip id="bike9" type="bike_bicycle" depart="1524.35" departLane="best" departSpeed="max" from="490718576#0" to="-1109917312"/>
+    <trip id="bike10" type="bike_bicycle" depart="1693.72" departLane="best" departSpeed="max" from="490718576#0" to="259907733#2"/>
+    <trip id="bike11" type="bike_bicycle" depart="1863.10" departLane="best" from="-800227544" to="259907733#2"/>
+    <trip id="bike12" type="bike_bicycle" depart="2032.47" departLane="best" from="800227544" to="1102818965"/>
+    <trip id="bike13" type="bike_bicycle" depart="2201.84" departLane="best" from="1109920317" to="-143003891#0"/>
+    <trip id="bike14" type="bike_bicycle" depart="2371.21" departLane="best" from="490718576#1" to="142486500"/>
+    <trip id="bike15" type="bike_bicycle" depart="2540.59" departLane="best" departSpeed="max" from="490718576#0" to="-309528977#1"/>
+    <trip id="bike16" type="bike_bicycle" depart="2709.96" departLane="best" from="1227996435" to="-780479741"/>
+    <trip id="bike18" type="bike_bicycle" depart="3048.70" departLane="best" departSpeed="max" from="490718576#0" to="143003891#0"/>
+    <trip id="bike19" type="bike_bicycle" depart="3218.08" departLane="best" from="490718576#2" to="1286973771"/>
+    <trip id="bike20" type="bike_bicycle" depart="3387.45" departLane="best" departSpeed="max" from="290642503" to="1227996435"/>
+</routes>
