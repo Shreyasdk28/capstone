@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <!-- generated on 2025-06-07 19:02:26 by Eclipse SUMO GUI Version 1.22.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+=======
+<!-- generated on 2025-09-10 19:50:37 by Eclipse SUMO GUI Version 1.12.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+>>>>>>> 5fd1ca31816f8ab0f2231b616e56f8c534ea3c42
 
     <input>
-        <net-file value="config/../net.net.xml"/>
-        <route-files value="config/../routes.rou.xml"/>
-        <additional-files value="config/detectors.add.xml"/>
+        <net-file value="config/../net_clean_final.net.xml"/>
+        <route-files value="config/../routes_adaptive.rou.xml"/>
+        <additional-files value="config/detectors.add.xml,config/network.typ.xml"/>
     </input>
 
     <time>
         <begin value="0"/>
         <end value="3600"/>
-        <step-length value="1"/>
+        <step-length value="0.5"/>
     </time>
 
     <processing>
+        <ignore-route-errors value="true"/>
         <time-to-teleport value="-1"/>
+        <time-to-impatience value="300"/>
+        <default.action-step-length value="1"/>
     </processing>
 
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
     <traci_server>
+<<<<<<< HEAD
         <remote-port value="62519"/>
+=======
+        <remote-port value="57565"/>
+>>>>>>> 5fd1ca31816f8ab0f2231b616e56f8c534ea3c42
     </traci_server>
 
     <gui_only>
+        <gui-settings-file value="viewsettings.xml"/>
+        <quit-on-end value="true"/>
         <start value="true"/>
+        <tracker-interval value="0.5"/>
     </gui_only>
 
-</sumoConfiguration>
+</configuration>
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+<<<<<<< HEAD
     <interval begin="0.00" end="1.00" id="detector_10074640066_1_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="0.00" end="1.00" id="detector_10074640066_1_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="0.00" end="1.00" id="detector_10074640066_3_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -1456,4 +1477,6 @@
     <interval begin="177.00" end="178.00" id="detector_10074640049_2_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="177.00" end="178.00" id="detector_10074640060_4_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="177.00" end="178.00" id="detector_10074640060_5_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+=======
+>>>>>>> 5fd1ca31816f8ab0f2231b616e56f8c534ea3c42
 </detector>

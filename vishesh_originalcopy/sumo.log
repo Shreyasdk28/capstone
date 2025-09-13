@@ -1,0 +1,19 @@
+***Starting server on port 54177 ***
+Loading net-file from '/home/shreyasdk/capstone/capstone/vishesh_originalcopy/net_clean_final.net.xml' ... done (113ms).
+Loading additional-files from '/home/shreyasdk/capstone/capstone/vishesh_originalcopy/config/rsu.add.xml' ... done (0ms).
+Loading done.
+Simulation started with time: 0.00
+Warning: Vehicle 'car_flow1.0' is not allowed to depart on any lane of edge '-1100799178'.
+Warning: Vehicle 'car_flow2.0' is not allowed to depart on any lane of edge '-1100799179#0'.
+Warning: Vehicle 'bus_flow1.0' is not allowed to depart on any lane of edge '-1100799151#0'.
+Simulation ended at time: 29.10
+Performance: 
+ Duration: 27.56s
+ TraCI-Duration: 8.43s
+ Real time factor: 1.05607
+ UPS: 0.000000
+Vehicles: 
+ Inserted: 0 (Loaded: 3)
+ Running: 0
+ Waiting: 0
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- RSU Type Definitions as POIs -->
+    <poiType id="rsu" color="red" layer="10" imgFile="rsu.png" width="5" height="5"/>
+    
+    <!-- RSU Communication Ranges (as polygons for visualization) -->
+    <poly id="rsu_range" color="yellow" fill="1" layer="1" lineWidth="0.1" shape="-10,-10 -10,10 10,10 10,-10"/>
+    
+    <!-- RSUs and their detectors will be added dynamically by the Python script -->
+</additional>

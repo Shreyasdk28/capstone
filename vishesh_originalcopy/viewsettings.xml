@@ -1,0 +1,154 @@
+<viewsettings>
+    <scheme name="real world">
+        <opengl value="true"/>
+        <background value="#FFFFFF"/>
+        <showGrid value="false"/>
+        
+        <!-- Enhanced vehicle visualization -->
+        <vehicle>
+            <vehicle value="#FF0000" width="2.0" min_size="5.0" show_blinker="true" draw_reverse="true"/>
+            <vehicle_scale value="true" min_size="5.0" max_size="10.0"/>
+            <vehicle_text value="id" size="50" color="#000000" bg_color="#FFFFFF" show_name="true"/>
+            <vehicle_size_exaggeration value="1.2"/>
+        </vehicle>
+        
+        <!-- Enhanced RSU visualization -->
+        <poi>
+            <poi_layer value="10"/>
+            <poi_color value="255,0,0"/>
+            <poi_size value="8"/>
+            <poi_text value="RSU" size="50" color="#000000" bg_color="#FFFFFF"/>
+        </poi>
+        
+        <!-- Show detectors -->
+        <detector>
+            <show_detectors value="true"/>
+            <detector_color value="0,255,0"/>
+            <e1_detector_color value="0,255,0"/>
+            <e2_detector_color value="0,200,0"/>
+            <e3_detector_color value="0,150,0"/>
+        </detector>
+    </scheme>
+    
+    <viewport y="0" x="0" zoom="100" z="100"/>
+    
+    <delay value="100"/>
+    
+    <!-- Enhanced visualization settings -->
+    <scheme name="enhanced">
+        <edges>
+            <edge color="#333333" width="1.5"/>
+            <railway width="1.5" color="#A0A0A0"/>
+            <edge_scale value="false"/>
+            <edge_show_direction value="false"/>
+            <railway_show_direction value="false"/>
+            <edge_show_bike_markings value="false"/>
+            <edge_show_route_index value="false"/>
+            <lane_show_direction value="false"/>
+            <lane_show_border value="false"/>
+            <show_link_decoration value="false"/>
+        </edges>
+        
+        <vehicles>
+            <vehicle color="#FF0000" width="1.5" min_size="3.0" show_blinker="true" draw_reverse="true"/>
+            <vehicle_scale value="true" min_size="5.0" max_size="10.0"/>
+            <vehicle_text value="id" size="0.5" color="#000000" bg_color="#FFFFFF" show_name="true"/>
+            <vehicle_size_exaggeration value="1.0"/>
+        </vehicles>
+        
+        <junctions>
+            <junction color="#FF0000" color_bus_stop="#00FF00" color_container_stop="#0000FF" color_charging_station="#00FFFF"/>
+            <junction_size value="5.0"/>
+            <junction_name_size value="1.0"/>
+            <junction_id_size value="1.0"/>
+            <junction_name_color value="#000000"/>
+            <junction_id_color value="#000000"/>
+        </junctions>
+        
+        <additionals>
+            <bus_stop color="#00FF00" color_signs="#00FF00" text_color="#000000" size="1.0"/>
+            <charging_station color="#00FFFF" color_signs="#00FFFF" text_color="#000000" size="1.0"/>
+            <parking_area color="#FFA500" color_signs="#FFA500" text_color="#000000" size="1.0"/>
+            <induction_loop color="#FF00FF" color_inner="#FFFFFF" size="2.0" name_color="#000000" show_detector="true" show_time="true"/>
+        </additionals>
+        
+        <selection>
+            <selected_color value="#FF0000"/>
+            <selected_scale value="1.5"/>
+            <selected_edge_color value="#FF0000"/>
+            <selected_edge_width value="3.0"/>
+        </selection>
+        
+        <legend>
+            <show_size_legend value="true"/>
+            <show_vehicle_color_legend value="true"/>
+            <show_vehicle_scale_legend value="true"/>
+        </legend>
+            <lane_show_direction value="false"/>
+            <lane_show_sublanes value="false"/>
+            <show_link_decoration value="true"/>
+            <show_links value="true"/>
+            <show_rails_on_top_of_roads value="false"/>
+        </edges>
+        
+        <vehicles>
+            <vehicle color="#0000FF" width="1.5"/>
+            <vehicle_colorer value="uniform"/>
+            <vehicle_quality value="normal"/>
+            <vehicle_size value="1"/>
+            <show_blinker value="true"/>
+            <draw_min_vehicle_size value="0.5"/>
+            <draw_min_vehicle_name_size value="0"/>
+        </vehicles>
+        
+        <junctions>
+            <junction color="#000000" size="1"/>
+            <junction_colorer value="uniform"/>
+            <show_link_decoration value="true"/>
+            <show_link_junction_index value="true"/>
+            <show_turn_directions value="true"/>
+            <draw_junction_shape value="true"/>
+            <draw_crossings_and_walkingareas value="true"/>
+        </junctions>
+        
+        <additionals>
+            <poi color="#FF0000" size="3"/>
+            <poi_size value="5"/>
+            <poi_name_size value="0"/>
+        </additionals>
+        
+        <selection>
+            <color value="#00FF00"/>
+            <misc_geometry_color value="#00FF00"/>
+            <selected_geometry_color value="#FF0000"/>
+        </selection>
+    </scheme>
+    
+    <legend value="false"/>
+    
+    <show_tooltips value="true"/>
+    <show_tooltip_window value="true"/>
+    <show_vehicle_size value="false"/>
+    <show_vehicle_scale_value value="false"/>
+    <show_vehicle_blinker value="true"/>
+    <show_vehicle_brake_lights value="true"/>
+    <show_vehicle_signals value="true"/>
+    <show_vehicle_id value="false"/>
+    <show_vehicle_route_index value="false"/>
+    <show_vehicle_lane_change_direction value="true"/>
+    <show_vehicle_speed value="false"/>
+    <show_vehicle_selector value="false"/>
+    <show_vehicle_scale_value value="false"/>
+    <show_vehicle_scale_value_relative value="false"/>
+    <show_vehicle_scale_value_absolute value="false"/>
+    <show_vehicle_scale_value_relative_speed value="false"/>
+    <show_vehicle_scale_value_absolute_speed value="false"/>
+    <show_vehicle_scale_value_relative_accel value="false"/>
+    <show_vehicle_scale_value_absolute_accel value="false"/>
+    <show_vehicle_scale_value_relative_angle value="false"/>
+    <show_vehicle_scale_value_absolute_angle value="false"/>
+    <show_vehicle_scale_value_relative_angle_deg value="false"/>
+    <show_vehicle_scale_value_absolute_angle_deg value="false"/>
+    <show_vehicle_scale_value_relative_angle_rad value="false"/>
+    <show_vehicle_scale_value_absolute_angle_rad value="false"/>
+</viewsettings>

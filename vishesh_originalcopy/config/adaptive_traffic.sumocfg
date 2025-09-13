@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="../test_net.net.xml"/>
+        <route-files value="../routes_adaptive.rou.xml"/>
+        <additional-files value="detectors.add.xml,network.typ.xml,rsu.add.xml"/>
+        <gui-settings-file value="../viewsettings.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="10800"/> <!-- 3 hours simulation time -->
+        <step-length value="0.5"/>
+        <default.action-step-length value="0.5"/>
+    </time>
+    <processing>
+        <time-to-teleport value="-1"/>
+        <time-to-impatience value="300"/>
+        <ignore-route-errors value="true"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="10"/>
+        <collision.mingap-factor value="0.5"/>
+    </processing>
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-warnings value="false"/>
+        <duration-log.disable value="true"/>
+    </report>
+    <gui_only>
+        <gui-settings-file value="viewsettings.xml"/>
+    </gui_only>
+</configuration>

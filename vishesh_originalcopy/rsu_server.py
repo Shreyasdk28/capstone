@@ -1,3 +1,4 @@
+# rsu_server.py
 import socket
 import json
 import time
@@ -11,6 +12,7 @@ SERVER_PORT = 9999
 PRIORITY_WEIGHTS = {"HIGH": 10, "MEDIUM": 5, "LOW": 3}
 CONGESTION_THRESHOLDS = {"HIGH": 8, "MEDIUM": 5, "LOW": 2}
 
+<<<<<<< HEAD
 class TrafficAnalyzer:
     def __init__(self):
         self.signal_history = defaultdict(lambda: deque(maxlen=50))
@@ -244,6 +246,46 @@ class WiMAXServer:
 def main():
     server = WiMAXServer()
     server.run()
+=======
+def decide_green_lane(msg_dict):
+    if msg_dict.get("ambulance"):
+        print(f"🚑 Ambulance detected in lane {msg_dict['ambulance_lane']}")
+        return msg_dict['ambulance_lane']
+    lane_density = msg_dict.get("lane_density", {})
+    if lane_density:
+        # Choose lane with max density
+        return max(lane_density.items(), key=lambda x: x[1])[0]
+    return None
+
+def main():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind((SERVER_IP, SERVER_PORT))
+    print(f"📡 RSU Server listening on {SERVER_IP}:{SERVER_PORT}")
+
+    try:
+        while True:
+            data, addr = s.recvfrom(4096)
+            msg = data.decode()
+            try:
+                msg_dict = ast.literal_eval(msg)
+            except Exception:
+                print("⚠️ Malformed message:", msg)
+                continue
+
+            signal_id = msg_dict.get('signal_id')
+            lane_density = msg_dict.get('lane_density')
+            print(f"📥 Received from {signal_id}, densities: {lane_density}")
+            
+            green_lane = decide_green_lane(msg_dict)
+            if green_lane:
+                reply = {"green_lane": green_lane}
+                s.sendto(str(reply).encode(), addr)
+                print(f"📤 Sent GREEN to lane: {green_lane}")
+    except KeyboardInterrupt:
+        print("🛑 Server stopped.")
+    finally:
+        s.close()
+>>>>>>> 5fd1ca31816f8ab0f2231b616e56f8c534ea3c42
 
 if __name__ == "__main__":
     main()
