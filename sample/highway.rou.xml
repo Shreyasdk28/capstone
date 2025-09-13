@@ -1,0 +1,15 @@
+<routes>
+    <vType id="car" accel="1.0" decel="4.5" sigma="0.5" length="5" maxSpeed="13.9" color="1,0,0"/>
+
+    <!-- Flows from each direction -->
+    <flow id="N2S" type="car" begin="0" end="3600" vehsPerHour="600" route="N2S"/>
+    <flow id="S2N" type="car" begin="0" end="3600" vehsPerHour="600" route="S2N"/>
+    <flow id="E2W" type="car" begin="0" end="3600" vehsPerHour="600" route="E2W"/>
+    <flow id="W2E" type="car" begin="0" end="3600" vehsPerHour="600" route="W2E"/>
+
+    <!-- Define routes -->
+    <route id="N2S" edges="N2J J2S"/>
+    <route id="S2N" edges="S2J J2N"/>
+    <route id="E2W" edges="E2J J2W"/>
+    <route id="W2E" edges="W2J J2E"/>
+</routes>

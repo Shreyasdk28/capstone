@@ -1,0 +1,6 @@
+<edges>
+    <!-- Road segments between junctions -->
+    <edge id="highway_0" from="J0" to="J1" numLanes="3" speed="33.33"/>
+    <edge id="highway_1" from="J1" to="J2" numLanes="3" speed="33.33"/>
+    <edge id="highway_2" from="J2" to="J3" numLanes="3" speed="33.33"/>
+</edges>

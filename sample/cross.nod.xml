@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <!-- Boundary nodes for first junction J0 -->
+    <node id="N0" x="100.0" y="300.0" type="priority"/>
+    <node id="S0" x="100.0" y="0.0" type="priority"/>
+    <node id="W0" x="0.0"  y="100.0" type="priority"/>
+
+    <!-- First junction with traffic light -->
+    <node id="J0" x="100.0" y="100.0" type="traffic_light"/>
+
+    <!-- Boundary nodes for second junction J2 -->
+    <node id="N2" x="300.0" y="300.0" type="priority"/>
+    <node id="S2" x="300.0" y="0.0" type="priority"/>
+    <node id="E2" x="400.0" y="100.0" type="priority"/>
+
+    <!-- Second junction with traffic light (200m to the east of J0) -->
+    <node id="J2" x="300.0" y="100.0" type="traffic_light"/>
+</nodes>

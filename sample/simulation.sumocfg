@@ -1,0 +1,32 @@
+<configuration>minikube delete --all
+
+    <input>
+        <net-file value="cross.net.xml"/>
+        <route-files value="cross.rou.xml"/>
+    </input>
+    
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+        <step-length value="1"/>
+    </time>
+    
+    <processing>
+        <ignore-route-errors value="true"/>
+        <time-to-teleport value="300"/>
+    </processing>
+    
+    <routing>
+        <device.rerouting.adaptation-steps value="180"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+    
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+    
+    <traci_server>
+        <remote-port value="8813"/>
+    </traci_server>
+</configuration>

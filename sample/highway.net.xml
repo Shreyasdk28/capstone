@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-11 13:14:42 by Eclipse SUMO netconvert Version 1.24.0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="highway.nod.xml"/>
+        <edge-files value="highway.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="highway.net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,3000.00,0.00" origBoundary="0.00,0.00,3000.00,0.00" projParameter="!"/>
+
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" speed="33.33" length="0.10" shape="1000.00,-8.00 1000.00,-8.00"/>
+        <lane id=":J1_0_1" index="1" speed="33.33" length="0.10" shape="1000.00,-4.80 1000.00,-4.80"/>
+        <lane id=":J1_0_2" index="2" speed="33.33" length="0.10" shape="1000.00,-1.60 1000.00,-1.60"/>
+    </edge>
+    <edge id=":J2_0" function="internal">
+        <lane id=":J2_0_0" index="0" speed="33.33" length="0.10" shape="2000.00,-8.00 2000.00,-8.00"/>
+        <lane id=":J2_0_1" index="1" speed="33.33" length="0.10" shape="2000.00,-4.80 2000.00,-4.80"/>
+        <lane id=":J2_0_2" index="2" speed="33.33" length="0.10" shape="2000.00,-1.60 2000.00,-1.60"/>
+    </edge>
+
+    <edge id="highway_0" from="J0" to="J1" priority="-1">
+        <lane id="highway_0_0" index="0" speed="33.33" length="1000.00" shape="0.00,-8.00 1000.00,-8.00"/>
+        <lane id="highway_0_1" index="1" speed="33.33" length="1000.00" shape="0.00,-4.80 1000.00,-4.80"/>
+        <lane id="highway_0_2" index="2" speed="33.33" length="1000.00" shape="0.00,-1.60 1000.00,-1.60"/>
+    </edge>
+    <edge id="highway_1" from="J1" to="J2" priority="-1">
+        <lane id="highway_1_0" index="0" speed="33.33" length="1000.00" shape="1000.00,-8.00 2000.00,-8.00"/>
+        <lane id="highway_1_1" index="1" speed="33.33" length="1000.00" shape="1000.00,-4.80 2000.00,-4.80"/>
+        <lane id="highway_1_2" index="2" speed="33.33" length="1000.00" shape="1000.00,-1.60 2000.00,-1.60"/>
+    </edge>
+    <edge id="highway_2" from="J2" to="J3" priority="-1">
+        <lane id="highway_2_0" index="0" speed="33.33" length="1000.00" shape="2000.00,-8.00 3000.00,-8.00"/>
+        <lane id="highway_2_1" index="1" speed="33.33" length="1000.00" shape="2000.00,-4.80 3000.00,-4.80"/>
+        <lane id="highway_2_2" index="2" speed="33.33" length="1000.00" shape="2000.00,-1.60 3000.00,-1.60"/>
+    </edge>
+
+    <tlLogic id="J1" type="static" programID="0" offset="0">
+        <phase duration="78" state="GGG"/>
+        <phase duration="7"  state="yyy"/>
+        <phase duration="5"  state="rrr"/>
+    </tlLogic>
+    <tlLogic id="J2" type="static" programID="0" offset="0">
+        <phase duration="78" state="GGG"/>
+        <phase duration="7"  state="yyy"/>
+        <phase duration="5"  state="rrr"/>
+    </tlLogic>
+
+    <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
+    <junction id="J1" type="traffic_light" x="1000.00" y="0.00" incLanes="highway_0_0 highway_0_1 highway_0_2" intLanes=":J1_0_0 :J1_0_1 :J1_0_2" shape="1000.00,0.00 1000.00,-9.60 1000.00,0.00">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="J2" type="traffic_light" x="2000.00" y="0.00" incLanes="highway_1_0 highway_1_1 highway_1_2" intLanes=":J2_0_0 :J2_0_1 :J2_0_2" shape="2000.00,0.00 2000.00,-9.60 2000.00,0.00">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="J3" type="dead_end" x="3000.00" y="0.00" incLanes="highway_2_0 highway_2_1 highway_2_2" intLanes="" shape="3000.00,-9.60 3000.00,0.00"/>
+
+    <connection from="highway_0" to="highway_1" fromLane="0" toLane="0" via=":J1_0_0" tl="J1" linkIndex="0" dir="s" state="O"/>
+    <connection from="highway_0" to="highway_1" fromLane="1" toLane="1" via=":J1_0_1" tl="J1" linkIndex="1" dir="s" state="O"/>
+    <connection from="highway_0" to="highway_1" fromLane="2" toLane="2" via=":J1_0_2" tl="J1" linkIndex="2" dir="s" state="O"/>
+    <connection from="highway_1" to="highway_2" fromLane="0" toLane="0" via=":J2_0_0" tl="J2" linkIndex="0" dir="s" state="O"/>
+    <connection from="highway_1" to="highway_2" fromLane="1" toLane="1" via=":J2_0_1" tl="J2" linkIndex="1" dir="s" state="O"/>
+    <connection from="highway_1" to="highway_2" fromLane="2" toLane="2" via=":J2_0_2" tl="J2" linkIndex="2" dir="s" state="O"/>
+
+    <connection from=":J1_0" to="highway_1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J1_0" to="highway_1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":J1_0" to="highway_1" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":J2_0" to="highway_2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J2_0" to="highway_2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":J2_0" to="highway_2" fromLane="2" toLane="2" dir="s" state="M"/>
+
+</net>

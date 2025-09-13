@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections>
+    <!-- North incoming -->
+    <connection from="N2J" to="J2S" tl="J0" dir="s" state="o"/>
+    <connection from="N2J" to="J2E" tl="J0" dir="r" state="o"/>
+    <connection from="N2J" to="J2W" tl="J0" dir="l" state="o"/>
+
+    <!-- South incoming -->
+    <connection from="S2J" to="J2N" tl="J0" dir="s" state="o"/>
+    <connection from="S2J" to="J2E" tl="J0" dir="l" state="o"/>
+    <connection from="S2J" to="J2W" tl="J0" dir="r" state="o"/>
+
+    <!-- East incoming -->
+    <connection from="E2J" to="J2W" tl="J0" dir="s" state="o"/>
+    <connection from="E2J" to="J2N" tl="J0" dir="l" state="o"/>
+    <connection from="E2J" to="J2S" tl="J0" dir="r" state="o"/>
+
+    <!-- West incoming -->
+    <connection from="W2J" to="J2E" tl="J0" dir="s" state="o"/>
+    <connection from="W2J" to="J2N" tl="J0" dir="r" state="o"/>
+    <connection from="W2J" to="J2S" tl="J0" dir="l" state="o"/>
+</connections>

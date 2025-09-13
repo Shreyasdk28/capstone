@@ -1,0 +1,9 @@
+<nodes>
+    <!-- Start and End -->
+    <node id="J0" x="0" y="0" type="priority"/>
+    <node id="J3" x="3000" y="0" type="priority"/>
+
+    <!-- Intermediate Junctions with Traffic Lights -->
+    <node id="J1" x="1000" y="0" type="traffic_light"/>
+    <node id="J2" x="2000" y="0" type="traffic_light"/>
+</nodes>

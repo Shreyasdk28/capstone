@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <!-- Vehicle types -->
+   
+<vType id="car" accel="2.0" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="70" color="1,0,0" guiShape="passenger"/>
+    <vType id="ambulance" accel="2.0" decel="6.0" sigma="0.2"
+           length="5.0" maxSpeed="25.0" color="1,0,0" guiShape="emergency">
+        <param key="hasEmergency" value="true"/>
+        <param key="ignoreRed" value="true"/>
+    </vType>
+
+    <!-- Routes -->
+    <route id="N2S_route" edges="N2J J2S"/>
+    <route id="S2N_route" edges="S2J J2N"/>
+    <route id="E2W_route" edges="E2J J2W"/>
+    <route id="W2E_route" edges="W2J J2E"/>
+    <route id="W2S_route" edges="W2J J2S"/>
+    <route id="W2N_route" edges="W2J J2N"/>
+
+
+    <!-- 10 cars -->
+    <vehicle id="car1" type="car" route="N2S_route" depart="0"/>
+    <vehicle id="car2" type="car" route="S2N_route" depart="2"/>
+    <vehicle id="car3" type="car" route="E2W_route" depart="4"/>
+    <vehicle id="car4" type="car" route="W2E_route" depart="6"/>
+    <vehicle id="car5" type="car" route="N2S_route" depart="8"/>
+    <vehicle id="car6" type="car" route="S2N_route" depart="10"/>
+    <vehicle id="car7" type="car" route="E2W_route" depart="12"/>
+    <vehicle id="car8" type="car" route="W2E_route" depart="14"/>
+    <vehicle id="car9" type="car" route="N2S_route" depart="16"/>
+    <vehicle id="car10" type="car" route="S2N_route" depart="18"/>
+
+    <!-- 3 ambulances -->
+    <vehicle id="Amb1" type="ambulance" route="E2W_route" depart="20"/>
+
+    <vehicle id="Amb2" type="ambulance" route="W2E_route" depart="40"/>
+    <vehicle id="Amb3" type="ambulance" route="N2S_route" depart="60"/>
+        <vehicle id="Amb4" type="ambulance" route="S2N_route" depart="75"/>
+        <vehicle id="Amb5" type="ambulance" route="W2N_route" depart="75"/>
+       
+
+</routes>
